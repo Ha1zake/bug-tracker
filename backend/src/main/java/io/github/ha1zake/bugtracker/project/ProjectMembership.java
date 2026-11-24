@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import io.github.ha1zake.bugtracker.user.User;
 
 @Entity
-@Table(name = "project_membership")
+@Table(name = "project_memberships")
 @IdClass(ProjectMembershipId.class)
 public class ProjectMembership {
     @Id
@@ -24,5 +24,11 @@ public class ProjectMembership {
         this.project = project;
         this.user = user;
         this.role = role;
+    }
+    public Project getProject() {
+        return project;
+    }
+    public ProjectRole getRole() {
+        return role;
     }
 }
