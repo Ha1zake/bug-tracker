@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', async () => {
+  // Если пользователь уже авторизован — сразу перенаправляем на главную
   try {
     await apiRequest('/api/auth/me');
     window.location.replace('home.html');
     return;
   } catch (e) {
+    // Не авторизован — показываем форму регистрации
   }
 
   const form = document.getElementById('register-form');
@@ -124,7 +126,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
         window.location.replace('home.html');
       } catch (loginErr) {
-        // Аккаунт уже создан, но автологин не прошёл — отправляем войти вручную
         window.location.replace('login.html?registered=1');
       }
     } catch (err) {
