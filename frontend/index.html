@@ -2,12 +2,20 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="refresh" content="0; url=register.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Баг-трекер</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+  <main class="page-center">
+    <p class="card-subtitle">Загрузка...</p>
+  </main>
+
+  <script src="js/api.js"></script>
   <script>
-    window.location.replace('register.html');
+    apiRequest('/api/auth/me')
+      .then(() => window.location.replace('home.html'))
+      .catch(() => window.location.replace('login.html'));
   </script>
 </body>
 </html>
