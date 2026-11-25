@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Обзор проекта — Баг-трекер</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <a href="home.html" class="sidebar-brand">Баг-трекер</a>
+      <nav class="sidebar-nav" aria-label="Основная навигация">
+        <a href="home.html" class="sidebar-link">Главная</a>
+      </nav>
+      <p class="sidebar-section-title">Мои проекты</p>
+      <nav id="sidebar-projects" class="sidebar-nav" aria-label="Мои проекты"></nav>
+    </aside>
+
+    <div class="app-main">
+      <header class="topbar">
+        <span id="current-user-name" class="topbar-user"></span>
+        <button type="button" id="logout-btn" class="btn btn--secondary btn--sm">
+          Выйти
+        </button>
+      </header>
+
+      <main class="content">
+        <div id="page-error" class="alert alert--error" role="alert" hidden>
+          <span class="alert-title">Не удалось открыть проект</span>
+          <span id="page-error-text"></span>
+        </div>
+
+        <div id="project-view" hidden>
+          <p class="breadcrumbs">
+            <a href="home.html">Главная</a> / <span id="breadcrumb-name"></span>
+          </p>
+
+          <div class="page-header">
+            <div>
+              <h1 id="project-name" class="page-title"></h1>
+              <div class="meta-line">
+                <span>Обзор проекта</span>
+                <span>·</span>
+                <span>Ваша роль: <strong id="project-role"></strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="tabs">
+            <span class="tab-item is-active">Обзор</span>
+          </div>
+
+          <section class="panel">
+            <h2 class="panel-title">О проекте</h2>
+            <p id="project-description" class="project-description-full"></p>
+
+            <div class="info-box">
+              <div class="info-row">
+                <span class="info-key">Идентификатор проекта</span>
+                <span id="project-id" class="info-value"></span>
+              </div>
+              <div class="info-row">
+                <span class="info-key">Ваша роль</span>
+                <span id="project-role-box" class="info-value"></span>
+              </div>
+            </div>
+
+            <div id="manager-edit-actions" hidden>
+              <a id="edit-project-link" href="#" class="btn btn--secondary">
+                Редактировать проект
+              </a>
+            </div>
+          </section>
+
+          <section id="manager-danger-zone" class="panel panel--danger" hidden>
+            <h2 class="panel-title">Управление проектом</h2>
+            <p class="page-subtitle" style="margin-bottom: 16px;">
+              Удаление проекта необратимо. Все связанные данные и доступы участников будут удалены.
+            </p>
+            <a id="delete-project-link" href="#" class="btn btn--danger-outline">
+              Удалить проект
+            </a>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/project.js"></script>
+</body>
+</html>
