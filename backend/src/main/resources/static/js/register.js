@@ -1,13 +1,15 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    await apiRequest('/api/auth/me');
+    window.location.replace('home.html');
+    return;
+  } catch (e) {
+  }
+
   const form = document.getElementById('register-form');
   const submitBtn = document.getElementById('submit-btn');
   const errorAlert = document.getElementById('form-error-alert');
   const errorAlertText = document.getElementById('form-error-text');
-  const infoAlert = document.getElementById('form-info-alert');
-
-  const successBlock = document.getElementById('register-success');
-  const registerAnotherBtn = document.getElementById('register-another-btn');
-  const loginPlaceholderBtn = document.getElementById('login-placeholder-btn');
 
   const fields = {
     displayName: document.getElementById('displayName'),
@@ -23,10 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
     confirmPassword: document.getElementById('error-confirmPassword'),
   };
 
-  function clearAlertsAndErrors() {
+  function clearErrors() {
     errorAlert.hidden = true;
     errorAlertText.textContent = '';
-    infoAlert.hidden = true;
 
     Object.keys(fields).forEach((key) => {
       fields[key].classList.remove('is-invalid');
@@ -95,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
-    clearAlertsAndErrors();
+    clearErrors();
 
     if (!validateForm()) {
       return;
@@ -111,17 +112,21 @@ document.addEventListener('DOMContentLoaded', () => {
     submitBtn.textContent = 'Создание аккаунта...';
 
     try {
-      const createdUser = await apiRequest('/api/auth/register', {
+      await apiRequest('/api/auth/register', {
         method: 'POST',
         body: JSON.stringify(payload),
       });
 
-      document.getElementById('res-id').textContent = createdUser.id;
-      document.getElementById('res-displayName').textContent = createdUser.displayName;
-      document.getElementById('res-email').textContent = createdUser.email;
-
-      form.hidden = true;
-      successBlock.hidden = false;
+      try {
+        await apiFormPost('/api/auth/login', {
+          email: payload.email,
+          password: payload.password,
+        });
+        window.location.replace('home.html');
+      } catch (loginErr) {
+        // Аккаунт уже создан, но автологин не прошёл — отправляем войти вручную
+        window.location.replace('login.html?registered=1');
+      }
     } catch (err) {
       showBannerError(err.detail);
 
@@ -134,21 +139,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (err.status === 409) {
         showFieldError('email', 'Уже зарегистрирован');
       }
-    } finally {
+
       submitBtn.disabled = false;
       submitBtn.textContent = 'Зарегистрироваться';
     }
-  });
-
-  registerAnotherBtn.addEventListener('click', () => {
-    form.reset();
-    clearAlertsAndErrors();
-    successBlock.hidden = true;
-    form.hidden = false;
-  });
-
-  loginPlaceholderBtn.addEventListener('click', () => {
-    clearAlertsAndErrors();
-    infoAlert.hidden = false;
   });
 });

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Войти — Баг-трекер</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html" class="brand">Баг-трекер</a>
+    <a href="login.html" class="header-nav">Вход / Регистрация</a>
+  </header>
+
+  <main class="page-center">
+    <section class="card">
+      <div id="form-error-alert" class="alert alert--error" role="alert" hidden>
+        <span class="alert-title">Проверьте данные</span>
+        <span id="form-error-text"></span>
+      </div>
+
+      <div id="form-success-alert" class="alert alert--success" role="status" hidden>
+        <span class="alert-title">Аккаунт создан</span>
+        <span>Теперь войдите, используя указанную почту и пароль.</span>
+      </div>
+
+      <p class="eyebrow">Добро пожаловать</p>
+      <h1 class="card-title">Войти в Баг-трекер</h1>
+      <p class="card-subtitle">Войдите, чтобы увидеть свои проекты и уведомления</p>
+
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <div class="label-row">
+            <label class="form-label" for="email">Электронная почта</label>
+            <span class="field-error" id="error-email"></span>
+          </div>
+          <input
+            class="form-input"
+            type="email"
+            id="email"
+            name="email"
+            placeholder="alexey@komanda.ru"
+            autocomplete="email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <div class="label-row">
+            <label class="form-label" for="password">Пароль</label>
+            <span class="field-error" id="error-password"></span>
+          </div>
+          <input
+            class="form-input"
+            type="password"
+            id="password"
+            name="password"
+            placeholder="••••••••••••"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+
+        <button type="submit" id="submit-btn" class="btn btn--primary btn--full">
+          Войти
+        </button>
+      </form>
+
+      <hr class="card-divider" />
+
+      <p class="footer-prompt">Ещё нет аккаунта?</p>
+      <a href="register.html" class="btn btn--secondary btn--full">
+        Зарегистрироваться
+      </a>
+    </section>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>
