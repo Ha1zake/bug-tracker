@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Удаление проекта — Баг-трекер</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <a href="home.html" class="sidebar-brand">Баг-трекер</a>
+      <nav class="sidebar-nav" aria-label="Основная навигация">
+        <a href="home.html" class="sidebar-link">Главная</a>
+      </nav>
+      <p class="sidebar-section-title">Мои проекты</p>
+      <nav id="sidebar-projects" class="sidebar-nav" aria-label="Мои проекты"></nav>
+    </aside>
+
+    <div class="app-main">
+      <header class="topbar">
+        <span id="current-user-name" class="topbar-user"></span>
+        <button type="button" id="logout-btn" class="btn btn--secondary btn--sm">
+          Выйти
+        </button>
+      </header>
+
+      <main class="content">
+        <div id="page-error" class="alert alert--error" role="alert" hidden>
+          <span class="alert-title">Удаление недоступно</span>
+          <span id="page-error-text"></span>
+        </div>
+
+        <div id="delete-view" hidden>
+          <p class="breadcrumbs">
+            <a href="home.html">Главная</a> /
+            <a id="breadcrumb-project-link" href="#"></a> /
+            Удаление
+          </p>
+
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Удаление проекта</h1>
+              <p id="project-subtitle" class="page-subtitle"></p>
+            </div>
+          </div>
+
+          <section class="panel panel--narrow panel--danger">
+            <h2 id="confirm-title" class="panel-title"></h2>
+            <p class="page-subtitle" style="margin-bottom: 12px;">
+              Будут удалены проект и все права доступа его участников. Восстановить удалённые данные невозможно.
+            </p>
+            <p class="page-subtitle">
+              <strong>Это действие необратимо.</strong>
+            </p>
+
+            <div class="form-actions">
+              <a id="cancel-link" href="home.html" class="btn btn--secondary">
+                Отмена
+              </a>
+              <button type="button" id="confirm-delete-btn" class="btn btn--danger">
+                Удалить проект
+              </button>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/project-delete.js"></script>
+</body>
+</html>
